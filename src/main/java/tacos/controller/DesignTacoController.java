@@ -1,6 +1,5 @@
 package tacos.controller;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,7 +58,7 @@ public class DesignTacoController {
 	public String processDesign(@Valid Taco design, Errors errors) {
 		if (errors.hasErrors()) {
 			log.info("Has errors! " + errors.getErrorCount());
-
+			return "redirect:/design";
 		}
 		log.info("Processing design " + design);
 		return "redirect:/orders/current";
