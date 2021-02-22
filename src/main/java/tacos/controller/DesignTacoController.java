@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tacos.domain.Ingredient;
+import tacos.domain.Taco;
 import tacos.domain.Ingredient.Type;
-import tacos.dto.TacoForm;
 
 /*
  * Controllers sao os principais 'jogadores' do spring MVC framework.Seus
@@ -43,7 +43,7 @@ public class DesignTacoController {
 		for (Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
 		}
-		model.addAttribute("design", new TacoForm());
+		model.addAttribute("design", new Taco());
 		return "design";
 	}
 
@@ -52,7 +52,7 @@ public class DesignTacoController {
 	}
 
 	@PostMapping
-	public String processDesign(TacoForm design) {
+	public String processDesign(Taco design) {
 		log.info("Processing design " + design);
 		return "redirect:/orders/current";
 	}

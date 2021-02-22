@@ -1,9 +1,9 @@
-package tacos.dto;
+package tacos.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TacoForm {
+public class Taco {
 
 	private String name;
 	private List<String> ingredients;

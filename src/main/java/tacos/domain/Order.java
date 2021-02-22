@@ -1,6 +1,6 @@
-package tacos.dto;
+package tacos.domain;
 
-public class OrderForm {
+public class Order {
 
 	private String name;
 	private String street;
