@@ -4,13 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tacos.domain.Ingredient;
 import tacos.domain.Ingredient.Type;
+import tacos.dto.TacoForm;
 
 /*
  * Controllers sao os principais 'jogadores' do spring MVC framework.Seus
@@ -23,8 +27,11 @@ import tacos.domain.Ingredient.Type;
 @RequestMapping("/design")
 public class DesignTacoController {
 
+	private final Logger log = LoggerFactory.getLogger(DesignTacoController.class);
+
 	@GetMapping
 	public String showDesignForm(Model model) {
+		log.info("GetMapping for base path(/design)");
 		List<Ingredient> ingredients = Arrays.asList(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
 				new Ingredient("COTO", "Corn Tortilla", Type.WRAP), new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
 				new Ingredient("CARN", "Carnitas", Type.PROTEIN),
@@ -36,6 +43,7 @@ public class DesignTacoController {
 		for (Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
 		}
+		model.addAttribute("design", new TacoForm());
 		return "design";
 	}
 
@@ -43,4 +51,9 @@ public class DesignTacoController {
 		return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
 	}
 
+	@PostMapping
+	public String processDesign(TacoForm design) {
+		log.info("Processing design " + design);
+		return "redirect:/orders/current";
+	}
 }
