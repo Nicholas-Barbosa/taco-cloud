@@ -74,7 +74,6 @@ public class DesignTacoController {
 
 	@PostMapping
 	public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
-		System.out.println(design.getIngredients());
 		if (errors.hasErrors()) {
 			log.info("Has errors! " + errors.getFieldError("name"));
 			return "/design";
