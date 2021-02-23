@@ -10,9 +10,9 @@ import javax.validation.constraints.Size;
 public class Taco {
 
 	private Long id;
-	
+
 	private LocalDateTime createdAt;
-	
+
 	@NotNull
 	@Size(min = 5, message = "Name must be at least 5 characteres.")
 	private String name;
@@ -35,7 +35,7 @@ public class Taco {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -49,6 +49,7 @@ public class Taco {
 	}
 
 	public void setIngredients(List<Ingredient> ingredients) {
+		System.out.println("set! " + ingredients);
 		this.ingredients = new ArrayList<>(ingredients);
 	}
 

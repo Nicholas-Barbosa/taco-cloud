@@ -1,6 +1,8 @@
 package tacos.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -31,7 +33,10 @@ public class Order {
 	@Digits(integer = 3, fraction = 0, message = "Invalid CVV")
 	private String ccCVV;
 
-	
+	private LocalDateTime placedAt;
+
+	private List<Taco> tacos = new ArrayList<>();
+
 	public Long getId() {
 		return id;
 	}
@@ -110,6 +115,26 @@ public class Order {
 
 	public void setCcCVV(String ccCVV) {
 		this.ccCVV = ccCVV;
+	}
+
+	public List<Taco> getTacos() {
+		return tacos;
+	}
+
+	public void setTacos(List<Taco> tacos) {
+		this.tacos = tacos;
+	}
+
+	public void addDesign(Taco design) {
+		this.tacos.add(design);
+	}
+
+	public LocalDateTime getPlacedAt() {
+		return placedAt;
+	}
+
+	public void setPlacedAt(LocalDateTime placedAt) {
+		this.placedAt = placedAt;
 	}
 
 	@Override

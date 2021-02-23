@@ -1,14 +1,11 @@
 package tacos.data;
 
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -32,7 +29,7 @@ public class JdbcTacoRepository implements TacoRepository {
 		long tacoId = saveTacoInfo(taco);
 		taco.setId(tacoId);
 		taco.getIngredients().parallelStream().map(in -> {
-			this.saveIngredientToTaco(in, tacoId);
+			this.saveIngredientToTaco(null, tacoId);
 			return "";
 		}).collect(Collectors.counting());
 		return taco;
@@ -40,15 +37,15 @@ public class JdbcTacoRepository implements TacoRepository {
 
 	private long saveTacoInfo(Taco taco) {
 		taco.setCreatedAt(LocalDateTime.now());
-		PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
-				"insert into Taco (name, createdAt) values (?, ?)", Types.VARCHAR, Types.TIMESTAMP)
-						.newPreparedStatementCreator(
-								Arrays.asList(taco.getName(), new Timestamp(taco.getCreatedAt().getHour())));
-
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		jdbcTemplate.update(psc, keyHolder);
-
-		return keyHolder.getKey().longValue();
+		jdbcTemplate.update(connection -> {
+			PreparedStatement ps = connection.prepareStatement("insert into Taco (name, createdAt) values (?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, taco.getName());
+			ps.setObject(2, taco.getCreatedAt());
+			return ps;
+		}, keyHolder);
+		return (long) keyHolder.getKey();
 	}
 
 	private void saveIngredientToTaco(Ingredient ingredient, long tacoId) {

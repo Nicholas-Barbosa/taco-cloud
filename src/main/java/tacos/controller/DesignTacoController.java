@@ -12,13 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tacos.domain.Ingredient;
 import tacos.domain.Ingredient.Type;
+import tacos.domain.Order;
 import tacos.domain.Taco;
 import tacos.repositry.IngredientRepository;
+import tacos.repositry.TacoRepository;
 
 /*
  * Controllers sao os principais 'jogadores' do spring MVC framework.Seus
@@ -29,15 +33,19 @@ import tacos.repositry.IngredientRepository;
 
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("order")
 public class DesignTacoController {
 
 	private final Logger log = LoggerFactory.getLogger(DesignTacoController.class);
 
 	private final IngredientRepository ingredientRepository;
 
-	public DesignTacoController(IngredientRepository ingredientRepository) {
+	private final TacoRepository designRepo;
+
+	public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepo) {
 		super();
 		this.ingredientRepository = ingredientRepository;
+		this.designRepo = tacoRepo;
 	}
 
 	@GetMapping
@@ -53,17 +61,32 @@ public class DesignTacoController {
 		return "design";
 	}
 
-	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-		return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
+	@ModelAttribute("order")
+	public Order order() {
+		return new Order();
 	}
 
+	@ModelAttribute("taco")
+	public Taco taco() {
+		return new Taco();
+	}
+
+
 	@PostMapping
-	public String processDesign(@Valid Taco design, Errors errors) {
+	public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
+		System.out.println(design.getIngredients());
 		if (errors.hasErrors()) {
-			log.info("Has errors! " + errors.getErrorCount());
-			return "redirect:/design";
+			log.info("Has errors! " + errors.getFieldError("name"));
+			return "/design";
 		}
 		log.info("Processing design " + design);
+
+		Taco saved = designRepo.save(design);
+		order.addDesign(saved);
 		return "redirect:/orders/current";
+	}
+
+	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
+		return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
 	}
 }
