@@ -18,7 +18,7 @@ public class Taco {
 	private String name;
 	@NotNull
 	@Size(min = 1, message = "You must choose at least 1 ingredient")
-	private List<String> ingredients;
+	private List<Ingredient> ingredients;
 
 	public Long getId() {
 		return id;
@@ -44,11 +44,11 @@ public class Taco {
 		this.name = name;
 	}
 
-	public List<String> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<String> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = new ArrayList<>(ingredients);
 	}
 
