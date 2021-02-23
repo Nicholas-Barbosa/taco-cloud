@@ -29,7 +29,7 @@ public class JdbcTacoRepository implements TacoRepository {
 		long tacoId = saveTacoInfo(taco);
 		taco.setId(tacoId);
 		taco.getIngredients().parallelStream().map(in -> {
-			this.saveIngredientToTaco(null, tacoId);
+			this.saveIngredientToTaco(in, tacoId);
 			return "";
 		}).collect(Collectors.counting());
 		return taco;

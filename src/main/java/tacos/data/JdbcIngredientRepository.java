@@ -23,14 +23,13 @@ public class JdbcIngredientRepository implements IngredientRepository {
 
 	@Override
 	public Iterable<Ingredient> findAll() {
-
 		return jdbcTemplate.query("SELECT id,name,type from Ingredient", this::mapRowToIngredient);
 	}
 
 	@Override
 	public Optional<Ingredient> findById(String id) {
 		// TODO Auto-generated method stub
-		return Optional.of(jdbcTemplate.queryForObject("SELECT id,name,type FROM Ingredient where id =?",
+		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT id,name,type FROM Ingredient where id =?",
 				this::mapRowToIngredient, id));
 	}
 

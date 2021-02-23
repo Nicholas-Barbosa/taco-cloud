@@ -49,7 +49,6 @@ public class Taco {
 	}
 
 	public void setIngredients(List<Ingredient> ingredients) {
-		System.out.println("set! " + ingredients);
 		this.ingredients = new ArrayList<>(ingredients);
 	}
 
