@@ -4,11 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
@@ -29,13 +30,15 @@ public class Taco {
 
 	@NotNull
 	@Size(min = 1, message = "You must choose at least 1 ingredient")
-	@ManyToMany(targetEntity = Ingredient.class)
+	@ManyToMany
+	@JoinTable(name = "TACO_INGREDIENTS", joinColumns = @JoinColumn(name = "TACO_ID"), inverseJoinColumns = @JoinColumn(name = "INGREDIENTS_ID"))
 	private List<Ingredient> ingredients;
 
 	@PrePersist
 	void createdAt() {
 		createdAt = LocalDateTime.now();
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -68,7 +71,6 @@ public class Taco {
 		this.ingredients = new ArrayList<>(ingredients);
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Taco [name=" + name + ", ingredients=" + ingredients + "]";
