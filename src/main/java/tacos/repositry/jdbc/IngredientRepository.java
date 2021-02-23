@@ -1,4 +1,4 @@
-package tacos.repositry;
+package tacos.repositry.jdbc;
 
 import java.util.Optional;
 

@@ -1,5 +1,9 @@
 package tacos.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ingredient {
 
 	/*
@@ -7,6 +11,7 @@ public class Ingredient {
 	 * que influenciam o ententedimento da aplicacao.
 	 * 
 	 */
+	@Id
 	private final String id;
 	private final String name;
 	private final Type type;
@@ -16,6 +21,10 @@ public class Ingredient {
 		this.id = id;
 		this.name = name;
 		this.type = type;
+	}
+
+	public Ingredient() {
+		this(null, null, null);
 	}
 
 	public String getId() {

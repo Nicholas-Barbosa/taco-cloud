@@ -1,4 +1,4 @@
-package tacos.data;
+package tacos.data.jdbc;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tacos.domain.Order;
 import tacos.domain.Taco;
-import tacos.repositry.OrderRepository;
+import tacos.repositry.jdbc.OrderRepository;
 
 @Repository
 public class JdbcOrderRepository implements OrderRepository {

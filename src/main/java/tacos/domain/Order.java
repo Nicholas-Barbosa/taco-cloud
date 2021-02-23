@@ -4,14 +4,24 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+@Entity
+@Table(name="Taco_Order")
 public class Order {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private LocalDateTime createdAt;
@@ -35,6 +45,7 @@ public class Order {
 
 	private LocalDateTime placedAt;
 
+	@ManyToMany(targetEntity = Taco.class)
 	private List<Taco> tacos = new ArrayList<>();
 
 	public Long getId() {
@@ -135,6 +146,10 @@ public class Order {
 
 	public void setPlacedAt(LocalDateTime placedAt) {
 		this.placedAt = placedAt;
+	}
+	
+	void palcedAt() {
+		this.placedAt = LocalDateTime.now();
 	}
 
 	@Override

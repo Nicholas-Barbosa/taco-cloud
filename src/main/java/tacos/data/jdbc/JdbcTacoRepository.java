@@ -1,4 +1,4 @@
-package tacos.data;
+package tacos.data.jdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import tacos.domain.Ingredient;
 import tacos.domain.Taco;
-import tacos.repositry.TacoRepository;
+import tacos.repositry.jdbc.TacoRepository;
 
 @Repository
 public class JdbcTacoRepository implements TacoRepository {

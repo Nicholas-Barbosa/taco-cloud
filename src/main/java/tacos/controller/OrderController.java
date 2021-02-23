@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import tacos.domain.Order;
-import tacos.repositry.OrderRepository;
+import tacos.repositry.jdbc.OrderRepository;
 
 @Controller
 @RequestMapping("/orders")

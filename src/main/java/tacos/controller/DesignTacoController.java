@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tacos.domain.Ingredient;
 import tacos.domain.Ingredient.Type;
+import tacos.repositry.jdbc.IngredientRepository;
+import tacos.repositry.jdbc.TacoRepository;
 import tacos.domain.Order;
 import tacos.domain.Taco;
-import tacos.repositry.IngredientRepository;
-import tacos.repositry.TacoRepository;
 
 /*
  * Controllers sao os principais 'jogadores' do spring MVC framework.Seus
