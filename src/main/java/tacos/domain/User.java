@@ -37,6 +37,13 @@ public class User implements UserDetails {
 		this(null, null, null, null, null, null, null, null, null);
 	}
 
+	
+	public User(String username, String password) {
+		this(null, username, password, null, null, null, null, null, null);
+		
+	}
+
+
 	public User(String username, String password, String fullname, String street, String city, String state, String zip,
 			String phoneNumber) {
 
