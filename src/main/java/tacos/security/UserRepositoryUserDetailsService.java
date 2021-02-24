@@ -1,10 +1,11 @@
-package tacos.service;
+package tacos.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import tacos.domain.User;
 import tacos.repositry.jpa.UserJpaRepository;
 
 @Service
@@ -21,8 +22,9 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 
-		return userRepo.getByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
+		User user = userRepo.getByUsername(username).orElseThrow();
+
+		return user;
 	}
 
 }

@@ -1,8 +1,12 @@
 package tacos.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,13 +26,21 @@ public class UserRegistrationController {
 		this.passwordEnconder = passwordEnconder;
 	}
 
+	@ModelAttribute("form")
+	public RegistrationForm registratioForm() {
+		return new RegistrationForm();
+	}
+
 	@GetMapping
 	public String registerForm() {
 		return "registration";
 	}
 
 	@PostMapping
-	public String processRegistration(RegistrationForm form) {
+	public String processRegistration(@Valid RegistrationForm form, Errors erros) {
+		System.out.println(erros.getFieldErrorCount());
+		if (erros.hasErrors()) 
+			return "registration";
 		userCrudService.save(form.toUser(passwordEnconder));
 		return "redirect:/login";
 	}

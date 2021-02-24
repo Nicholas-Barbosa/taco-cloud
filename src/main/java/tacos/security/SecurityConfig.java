@@ -1,7 +1,5 @@
 package tacos.security;
 
-import java.time.LocalDate;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/design", "/orders").hasRole("USER").antMatchers("/", "/**")
-				.access("T(java.time.LocalDate).now().getDayOfMonth()==24");
+				.access("T(java.time.LocalDate).now().getDayOfMonth()==24").and().formLogin().loginPage("/login")
+				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and()
+				.logout().logoutSuccessUrl("/");
 	}
 
 	@Override
@@ -42,10 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		/*
 		 * In-memory
 		 * 
-		 * auth.inMemoryAuthentication().withUser("buzz").password("infinity").
+		 * auth.inMemoryAuthentication().withUser("buzz").password("infinity")
+		 * .authorities("ROLE_USER").and().withUser("woody").password("bullseye").
 		 * authorities("ROLE_USER").and()
-		 * .withUser("woody").password("bullseye").authorities("ROLE_USER").and().
-		 * withUser("nicholas") .password("{noop}123").authorities("ROLE_USER");
+		 * .withUser("nicholas").password("123").authorities("ROLE_USER");
 		 */
 
 		/*
