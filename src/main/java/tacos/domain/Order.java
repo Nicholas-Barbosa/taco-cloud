@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 @Entity
-@Table(name="Taco_Order")
+@Table(name = "Taco_Order")
 public class Order {
 
 	@Id
@@ -47,6 +48,9 @@ public class Order {
 
 	@ManyToMany(targetEntity = Taco.class)
 	private List<Taco> tacos = new ArrayList<>();
+
+	@ManyToOne
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -147,9 +151,17 @@ public class Order {
 	public void setPlacedAt(LocalDateTime placedAt) {
 		this.placedAt = placedAt;
 	}
-	
+
 	void palcedAt() {
 		this.placedAt = LocalDateTime.now();
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

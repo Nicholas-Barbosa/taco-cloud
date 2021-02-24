@@ -40,9 +40,6 @@ public class UserRegistrationController {
 
 	@PostMapping
 	public String processRegistration(@Valid RegistrationForm form, Errors erros, HttpServletRequest request) {
-		
-		System.out.println(((DefaultCsrfToken)request.getAttribute("_csrf")).getToken());
-		System.out.println(erros.getFieldErrorCount());
 		if (erros.hasErrors()) 
 			return "registration";
 		userCrudService.save(form.toUser(passwordEnconder));
