@@ -1,4 +1,4 @@
-package tacos.security;
+package tacos.configuration.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

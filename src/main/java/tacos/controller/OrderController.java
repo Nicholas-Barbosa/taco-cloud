@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import tacos.configuration.properties.OrderProps;
 import tacos.domain.Order;
 import tacos.domain.User;
 import tacos.repositry.jdbc.OrderRepository;
@@ -22,20 +22,18 @@ import tacos.repositry.jdbc.OrderRepository;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("order")
-@ConfigurationProperties(prefix = "taco.orders")
 public class OrderController {
 
 	private final Logger log = LoggerFactory.getLogger(OrderController.class);
 
 	private final OrderRepository orderRepo;
 
-	private int pageSize = 5;
+	private final OrderProps orderProps;
 
-	public OrderController(OrderRepository orderRepo) {
+	public OrderController(OrderRepository orderRepo, OrderProps orderProps) {
 		this.orderRepo = orderRepo;
+		this.orderProps = orderProps;
 	}
-
-	
 
 	@GetMapping("/current")
 	public String orderForm(Model model) {
@@ -57,7 +55,7 @@ public class OrderController {
 
 	@GetMapping("/forUser")
 	public String orderForUser() {
-		System.out.println("pageSize " + pageSize);
+		System.out.println("pageSize " + orderProps.getPageSize());
 		return "home";
 	}
 }

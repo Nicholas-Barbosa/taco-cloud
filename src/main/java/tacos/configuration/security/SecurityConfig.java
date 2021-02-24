@@ -1,4 +1,4 @@
-package tacos.security;
+package tacos.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/design", "/orders").hasRole("USER").antMatchers("/", "/**")
+		http.authorizeRequests().antMatchers("/design/**", "/orders/**").hasRole("USER").antMatchers("/", "/**")
 				.access("T(java.time.LocalDate).now().getDayOfMonth()==24").and().formLogin().loginPage("/login")
-				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and()
-				.logout().logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**");
+				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and().logout()
+				.logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**");
 	}
 
 	@Override
