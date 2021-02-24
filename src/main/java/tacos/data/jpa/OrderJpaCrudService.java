@@ -1,12 +1,16 @@
 package tacos.data.jpa;
 
+import java.util.List;
 import java.util.Optional;
 
-import tacos.data.CrudService;
+import org.springframework.data.domain.Pageable;
+
+import tacos.data.OrderCrudService;
 import tacos.domain.Order;
+import tacos.domain.User;
 import tacos.repositry.jpa.OrderJpaRepository;
 
-public class OrderJpaCrudService implements CrudService<Order, Long> {
+public class OrderJpaCrudService implements OrderCrudService {
 
 	private final OrderJpaRepository orderJpaRepo;
 
@@ -31,6 +35,12 @@ public class OrderJpaCrudService implements CrudService<Order, Long> {
 	public Optional<Order> findById(Long id) {
 		// TODO Auto-generated method stub
 		return orderJpaRepo.findById(id);
+	}
+
+	@Override
+	public List<Order> findByUser(User user, Pageable page) {
+		// TODO Auto-generated method stub
+		return orderJpaRepo.findByUserOrderByPlacedAtDesc(user, page);
 	}
 
 }
