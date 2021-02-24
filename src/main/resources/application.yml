@@ -1,2 +1,10 @@
 server:
   port: 8443   ssl:    key-store: src/main/resources/keystore/mykeys.jks    key-store-password: Vicinitech12    key-password: Vicinitech12
+spring:  datasource:    url: jdbc:mysql://localhost:3306/tacocloud?useTimezone=true&serverTimezone=UTC    username: root
+    password: Vicinitech12
+  jpa:    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect    show-sql: true
+  
+#logging:  
+ # file: files/....
+   # level:  #  root: WARN
+    #'[org.springframework.security]': DEBUG               
