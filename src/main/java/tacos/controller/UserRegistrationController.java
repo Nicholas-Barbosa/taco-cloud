@@ -1,8 +1,10 @@
 package tacos.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.DefaultCsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,9 @@ public class UserRegistrationController {
 	}
 
 	@PostMapping
-	public String processRegistration(@Valid RegistrationForm form, Errors erros) {
+	public String processRegistration(@Valid RegistrationForm form, Errors erros, HttpServletRequest request) {
+		
+		System.out.println(((DefaultCsrfToken)request.getAttribute("_csrf")).getToken());
 		System.out.println(erros.getFieldErrorCount());
 		if (erros.hasErrors()) 
 			return "registration";
