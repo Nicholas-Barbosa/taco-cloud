@@ -1,0 +1,2 @@
+server:
+  port: 8443   ssl:    key-store: src/main/resources/keystore/mykeys.jks    key-store-password: Vicinitech12    key-password: Vicinitech12
