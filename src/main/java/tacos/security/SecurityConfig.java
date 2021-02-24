@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/design", "/orders").hasRole("USER").antMatchers("/", "/**")
 				.access("T(java.time.LocalDate).now().getDayOfMonth()==24").and().formLogin().loginPage("/login")
 				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and()
-				.logout().logoutSuccessUrl("/");
+				.logout().logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**");
 	}
 
 	@Override
