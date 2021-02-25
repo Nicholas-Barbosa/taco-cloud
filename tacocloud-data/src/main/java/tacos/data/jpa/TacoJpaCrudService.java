@@ -2,11 +2,14 @@ package tacos.data.jpa;
 
 import java.util.Optional;
 
-import tacos.data.CrudService;
+import org.springframework.stereotype.Service;
+
+import tacos.data.TacoCrudService;
 import tacos.domain.Taco;
 import tacos.repositry.jpa.TacoJpaRepository;
 
-public class TacoJpaCrudService implements CrudService<Taco, Long> {
+@Service
+public class TacoJpaCrudService implements TacoCrudService {
 
 	private final TacoJpaRepository tacoJpaRepo;
 

@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import tacos.controller.DesignTacoRestController;
 import tacos.domain.Ingredient;
 import tacos.domain.Ingredient.Type;
-import tacos.repositry.jdbc.IngredientRepository;
-import tacos.repositry.jdbc.TacoRepository;
 import tacos.domain.Order;
 import tacos.domain.Taco;
+import tacos.repositry.jdbc.IngredientRepository;
+import tacos.repositry.jdbc.TacoRepository;
 
 /*
  * Controllers sao os principais 'jogadores' do spring MVC framework.Seus
@@ -42,6 +43,7 @@ public class DesignTacoController {
 
 	private final TacoRepository designRepo;
 
+	
 	public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepo) {
 		super();
 		this.ingredientRepository = ingredientRepository;
@@ -84,7 +86,7 @@ public class DesignTacoController {
 		order.addDesign(saved);
 		return "redirect:/orders/current";
 	}
-
+	
 	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
 		return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
 	}
