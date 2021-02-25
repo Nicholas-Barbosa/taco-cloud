@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "taco.orders")
 public class OrderProps {
 
-	private int pageSize=20;
+	private int pageSize = 20;
 
 	public int getPageSize() {
 		return pageSize;
