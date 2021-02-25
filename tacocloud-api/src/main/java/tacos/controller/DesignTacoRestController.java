@@ -1,12 +1,19 @@
 package tacos.controller;
 
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import tacos.data.TacoCrudService;
 import tacos.domain.Taco;
+import tacos.dto.TacoDTO;
 
 @RestController
 @RequestMapping(path = "/api/design", produces = "application/json")
@@ -22,7 +29,15 @@ public class DesignTacoRestController {
 
 	@GetMapping("/recent")
 	public Iterable<Taco> recentTacos() {
-		
 		return tacoCrudService.findAll();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<TacoDTO> tacoById(@PathVariable Long id) {
+		Optional<Taco> taco = tacoCrudService.findById(id);
+
+		return new ResponseEntity<TacoDTO>(
+				new TacoDTO(taco.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))), HttpStatus.OK);
+
 	}
 }
