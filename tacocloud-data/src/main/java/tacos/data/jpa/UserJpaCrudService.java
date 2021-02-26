@@ -27,7 +27,7 @@ public class UserJpaCrudService implements UserCrudService {
 	@Override
 	public Iterable<User> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepo.findAll();
 	}
 
 	@Override

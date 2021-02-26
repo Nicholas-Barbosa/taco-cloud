@@ -13,16 +13,7 @@ spring:
     properties:     hibernate.format_sql: true 
     hibernate:      ddl-auto: update       
     
----
-server:
-  port: 8080 
-  ssl:
-    key-store: src/main/resources/keystore/mykeys.jks
-    key-store-password: Vicinitech12
-    key-password: Vicinitech12
-spring:
-  profiles:
-  - dev
+
 
  
 #logging:  

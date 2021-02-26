@@ -1,5 +1,7 @@
 package tacos.configuration.security;
 
+import java.time.LocalDate;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,8 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/design/**", "/orders/**").hasRole("USER").antMatchers("/", "/**")
-				.access("T(java.time.LocalDate).now().getDayOfMonth()==24").and().formLogin().loginPage("/login")
+		http.authorizeRequests().antMatchers("/design/**", "/orders/**").hasRole("USER").antMatchers("/login")
+				.access("permitAll").antMatchers("/", "/**", "/api/**")
+				.access("T(java.time.LocalDate).now().getYear()==2021").and().formLogin().loginPage("/login")
 				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and().logout()
 				.logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**");
 	}
