@@ -1,5 +1,7 @@
 package tacos.representationmodel.assemblers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 import tacos.controller.UserRestController;
@@ -15,6 +17,7 @@ public class UserRepresentationModelAssembler
 
 	@Override
 	public UserRepresentationModel toModel(User user) {
+		System.out.println("toModel");
 		return createModelWithId(user.getId(), user);
 
 	}
@@ -24,6 +27,5 @@ public class UserRepresentationModelAssembler
 		// TODO Auto-generated method stub
 		return new UserRepresentationModel(entity);
 	}
-	
 
 }

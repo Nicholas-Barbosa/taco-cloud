@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,14 +44,14 @@ public class UserRestController {
 		 * 
 		 * Resource now is EntityModel
 		 */
-		
-		List<User>modelUsers =new ArrayList<User>();
-		
+
+		List<User> modelUsers = new ArrayList<User>();
+
 		userCrudService.findAll().forEach(modelUsers::add);
 
-		CollectionModel<UserRepresentationModel> users = new UserRepresentationModelAssembler().toCollectionModel(modelUsers);
-		
-		
+		CollectionModel<UserRepresentationModel> users = new UserRepresentationModelAssembler()
+				.toCollectionModel(modelUsers);
+
 		users.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class).showUsers())
 				.withRel("users"));
 		return users;

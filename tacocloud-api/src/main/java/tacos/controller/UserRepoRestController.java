@@ -1,10 +1,10 @@
 package tacos.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.hateoas.CollectionModel;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,18 +19,22 @@ public class UserRepoRestController {
 
 	private final UserCrudService userCrudService;
 
-	public UserRepoRestController(UserCrudService userCrudService) {
+	private final PagedResourcesAssembler<User> pagedResourceAssembler;
+
+	public UserRepoRestController(UserCrudService userCrudService,
+			PagedResourcesAssembler<User> pagedResourceAssembler) {
 		super();
 		this.userCrudService = userCrudService;
+		this.pagedResourceAssembler = pagedResourceAssembler;
 	}
 
 	@GetMapping("/users")
-	public ResponseEntity<CollectionModel<UserRepresentationModel>> showUsers() {
-		System.out.println("data rest!");
-		List<User> modelUsers = userCrudService.findAll(PageRequest.of(0, 2)).getContent();
-		CollectionModel<UserRepresentationModel> users = new UserRepresentationModelAssembler()
-				.toCollectionModel(modelUsers);
-		return new ResponseEntity<CollectionModel<UserRepresentationModel>>(users, HttpStatus.FOUND);
+	public ResponseEntity<PagedModel<UserRepresentationModel>> showUsers() {
+		Page<User> modelUsers = userCrudService.findAll(PageRequest.of(0, 2));
+		PagedModel<UserRepresentationModel> users = pagedResourceAssembler.toModel(modelUsers,
+				new UserRepresentationModelAssembler());
+
+		return new ResponseEntity<PagedModel<UserRepresentationModel>>(users, HttpStatus.FOUND);
 
 	}
 }
