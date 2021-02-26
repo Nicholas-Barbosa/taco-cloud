@@ -17,7 +17,6 @@ public class UserRepresentationModelAssembler
 
 	@Override
 	public UserRepresentationModel toModel(User user) {
-		System.out.println("toModel");
 		return createModelWithId(user.getId(), user);
 
 	}

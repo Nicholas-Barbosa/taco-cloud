@@ -1,9 +1,13 @@
 package tacos.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +39,18 @@ public class UserRepoRestController {
 				new UserRepresentationModelAssembler());
 
 		return new ResponseEntity<PagedModel<UserRepresentationModel>>(users, HttpStatus.FOUND);
+
+	}
+
+	@GetMapping("/users/collectionModel")
+	public ResponseEntity<CollectionModel<UserRepresentationModel>> showUsersCollectionModel() {
+		Set<User> entityUsers = new HashSet<>();
+		userCrudService.findAll().forEach(entityUsers::add);
+
+		CollectionModel<UserRepresentationModel> collectionModels = new UserRepresentationModelAssembler()
+				.toCollectionModel(entityUsers);
+
+		return new ResponseEntity<CollectionModel<UserRepresentationModel>>(collectionModels, HttpStatus.FOUND);
 
 	}
 }
