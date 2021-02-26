@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +47,9 @@ public class UserRestController {
 
 		CollectionModel<EntityModel<UserDTO>> resources = CollectionModel.wrap(users);
 
-		resources.add(WebMvcLinkBuilder.linkTo(UserRestController.class).slash("/links").withRel("users"));
+		resources.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class).showUsers())
+				.withRel("users"));
+
 		return resources;
 	}
 }
