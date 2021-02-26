@@ -15,7 +15,10 @@ import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 @Entity
+@RestResource(path = "tacos", rel = "tacos")
 public class Taco {
 
 	@Id
