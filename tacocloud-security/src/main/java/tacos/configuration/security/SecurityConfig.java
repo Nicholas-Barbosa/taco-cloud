@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,11 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/design/**", "/orders/**").hasRole("USER").antMatchers("/login")
-				.access("permitAll").antMatchers("/", "/**", "/api/**")
+		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().antMatchers("/design/**", "/orders/**")
+				.hasRole("USER").antMatchers("/login").access("permitAll").antMatchers("/", "/**")
 				.access("T(java.time.LocalDate).now().getYear()==2021").and().formLogin().loginPage("/login")
 				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and().logout()
-				.logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**");
+				.logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**").and()
+				.headers().frameOptions().sameOrigin();
 	}
 
 	@Override
