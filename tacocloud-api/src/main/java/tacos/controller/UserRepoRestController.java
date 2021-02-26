@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
@@ -34,7 +35,7 @@ public class UserRepoRestController {
 
 	@GetMapping("/users")
 	public ResponseEntity<PagedModel<UserRepresentationModel>> showUsers() {
-		Page<User> modelUsers = userCrudService.findAll(PageRequest.of(0, 2));
+		Page<User> modelUsers = userCrudService.findAll(PageRequest.of(0, 2, Sort.by("username").ascending()));
 		PagedModel<UserRepresentationModel> users = pagedResourceAssembler.toModel(modelUsers,
 				new UserRepresentationModelAssembler());
 

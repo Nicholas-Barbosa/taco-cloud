@@ -24,7 +24,9 @@ public class DataLoaderDevPf implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Bootstraping User Object...");
-		userCrudService.save(new User("nicholas", "$2a$10$aIbd.c2hP6nMp8qlOilIlegl4cfOyMzHf3dLhMa1Oq5F2QI5wIKCe"));
+		for (int i = 0; i < 100; i++) {
+			userCrudService.save(new User("nicholas"+i, "$2a$10$aIbd.c2hP6nMp8qlOilIlegl4cfOyMzHf3dLhMa1Oq5F2QI5wIKCe"));
+		}
 		log.info("User Object saved!");
 	}
 
