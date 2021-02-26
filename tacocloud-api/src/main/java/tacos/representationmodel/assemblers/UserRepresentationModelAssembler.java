@@ -24,5 +24,6 @@ public class UserRepresentationModelAssembler
 		// TODO Auto-generated method stub
 		return new UserRepresentationModel(entity);
 	}
+	
 
 }
