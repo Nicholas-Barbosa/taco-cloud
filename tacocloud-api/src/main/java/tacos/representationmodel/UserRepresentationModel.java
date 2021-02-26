@@ -1,17 +1,17 @@
-package tacos.dto;
+package tacos.representationmodel;
 
 import org.springframework.hateoas.RepresentationModel;
 
 import tacos.domain.User;
 
-public class UserDTO {
+public class UserRepresentationModel extends RepresentationModel<UserRepresentationModel> {
 
 	private String username;
 	private String fullname;
 	private String street;
 	private String city;
 
-	private UserDTO(User user) {
+	public UserRepresentationModel(User user) {
 		super();
 		this.username = user.getUsername();
 		this.fullname = user.getFullname();
@@ -19,9 +19,7 @@ public class UserDTO {
 		this.city = user.getCity();
 	}
 
-	public static UserDTO toDTO(User user) {
-		return new UserDTO(user);
-	}
+	
 
 	public String getUsername() {
 		return username;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tacos.data.UserCrudService;
 import tacos.domain.User;
 import tacos.dto.UserDTO;
+import tacos.representationmodel.UserRepresentationModel;
 
 @RequestMapping("/api/user")
 @RestController
@@ -35,21 +36,20 @@ public class UserRestController {
 	}
 
 	@GetMapping("/links")
-	public CollectionModel<EntityModel<UserDTO>> showUsersWithLinks() {
+	public CollectionModel<EntityModel<UserRepresentationModel>> showUsersWithLinks() {
 		/*
 		 * Resources now is CollectionModel
 		 * 
 		 * Resource now is EntityModel
 		 */
-		List<UserDTO> users = new ArrayList<>();
-		Consumer<User> c = u -> users.add(UserDTO.toDTO(u));
+		List<UserRepresentationModel> users = new ArrayList<>();
+		Consumer<User> c = u -> users.add(UserRepresentationModel.toRepresentation(u));
 		userCrudService.findAll().forEach(c);
 
-		CollectionModel<EntityModel<UserDTO>> resources = CollectionModel.wrap(users);
+		CollectionModel<EntityModel<UserRepresentationModel>> resources = CollectionModel.wrap(users);
 
 		resources.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class).showUsers())
 				.withRel("users"));
-
 		return resources;
 	}
 }
