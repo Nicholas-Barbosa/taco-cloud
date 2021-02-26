@@ -15,6 +15,7 @@ import tacos.data.UserCrudService;
 import tacos.domain.User;
 import tacos.dto.UserDTO;
 import tacos.representationmodel.UserRepresentationModel;
+import tacos.representationmodel.assemblers.UserRepresentationModelAssembler;
 
 @RequestMapping("/api/user")
 @RestController
@@ -36,20 +37,22 @@ public class UserRestController {
 	}
 
 	@GetMapping("/links")
-	public CollectionModel<EntityModel<UserRepresentationModel>> showUsersWithLinks() {
+	public CollectionModel<UserRepresentationModel> showUsersWithLinks() {
 		/*
 		 * Resources now is CollectionModel
 		 * 
 		 * Resource now is EntityModel
 		 */
-		List<UserRepresentationModel> users = new ArrayList<>();
-		Consumer<User> c = u -> users.add(UserRepresentationModel.toRepresentation(u));
-		userCrudService.findAll().forEach(c);
+		
+		List<User>modelUsers =new ArrayList<User>();
+		
+		userCrudService.findAll().forEach(modelUsers::add);
 
-		CollectionModel<EntityModel<UserRepresentationModel>> resources = CollectionModel.wrap(users);
-
-		resources.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class).showUsers())
+		CollectionModel<UserRepresentationModel> users = new UserRepresentationModelAssembler().toCollectionModel(modelUsers);
+		
+		
+		users.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class).showUsers())
 				.withRel("users"));
-		return resources;
+		return users;
 	}
 }
