@@ -1,7 +1,5 @@
 package tacos.representationmodel.assemblers;
 
-import org.springframework.data.domain.Page;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 import tacos.controller.UserRestController;
