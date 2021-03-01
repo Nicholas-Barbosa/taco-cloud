@@ -24,6 +24,14 @@ public class UserDTO {
 		return new UserDTO(user);
 	}
 
+	
+	public UserDTO(String username, String fullname, String street, String city) {
+		super();
+		this.username = username;
+		this.fullname = fullname;
+		this.street = street;
+		this.city = city;
+	}
 	public String getUsername() {
 		return username;
 	}
