@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.data.domain.Page;
@@ -17,7 +16,10 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import tacos.data.UserCrudService;
 import tacos.domain.User;
@@ -32,6 +34,7 @@ public class UserRepoRestController {
 
 	private final PagedResourcesAssembler<User> pagedResourceAssembler;
 
+	
 	public UserRepoRestController(UserCrudService userCrudService,
 			PagedResourcesAssembler<User> pagedResourceAssembler) {
 		super();
@@ -70,6 +73,11 @@ public class UserRepoRestController {
 		List<UserDTO> lUsers = uStream.parallel().collect(CopyOnWriteArrayList::new, List::add, List::addAll);
 
 		return new ResponseEntity<>(lUsers, HttpStatus.OK);
+
+	}
+	@PutMapping("/users/{id}")
+	public ResponseEntity<UserDTO> putUser(@RequestBody UserDTO user) {
+		return new ResponseEntity<>(user, HttpStatus.OK);
 
 	}
 }
