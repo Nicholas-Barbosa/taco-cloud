@@ -16,7 +16,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +27,7 @@ import tacos.dto.UserDTO;
 import tacos.representationmodel.UserRepresentationModel;
 import tacos.representationmodel.assemblers.UserRepresentationModelAssembler;
 
+@CrossOrigin(origins = "*")
 @RepositoryRestController
 public class UserRepoRestController {
 
@@ -34,7 +35,6 @@ public class UserRepoRestController {
 
 	private final PagedResourcesAssembler<User> pagedResourceAssembler;
 
-	
 	public UserRepoRestController(UserCrudService userCrudService,
 			PagedResourcesAssembler<User> pagedResourceAssembler) {
 		super();
@@ -75,6 +75,7 @@ public class UserRepoRestController {
 		return new ResponseEntity<>(lUsers, HttpStatus.OK);
 
 	}
+
 	@PutMapping("/users/{id}")
 	public ResponseEntity<UserDTO> putUser(@RequestBody UserDTO user) {
 		return new ResponseEntity<>(user, HttpStatus.OK);
