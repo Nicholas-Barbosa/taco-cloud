@@ -1,7 +1,5 @@
 package tacos.dto;
 
-import org.springframework.hateoas.RepresentationModel;
-
 import tacos.domain.User;
 
 public class UserDTO {
@@ -17,6 +15,9 @@ public class UserDTO {
 		this.fullname = user.getFullname();
 		this.street = user.getStreet();
 		this.city = user.getCity();
+	}
+	public UserDTO() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public static UserDTO toDTO(User user) {
@@ -38,5 +39,11 @@ public class UserDTO {
 	public String getCity() {
 		return city;
 	}
+	@Override
+	public String toString() {
+		return "UserDTO [username=" + username + ", fullname=" + fullname + ", street=" + street + ", city=" + city
+				+ "]";
+	}
 
+	
 }

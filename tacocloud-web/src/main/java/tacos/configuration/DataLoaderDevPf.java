@@ -5,11 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import tacos.data.UserCrudService;
 import tacos.domain.User;
 
-@Configuration
+@Component
 @Profile("dev")
 public class DataLoaderDevPf implements CommandLineRunner {
 
@@ -25,7 +26,8 @@ public class DataLoaderDevPf implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.info("Bootstraping User Object...");
 		for (int i = 0; i < 100; i++) {
-			userCrudService.save(new User("nicholas"+i, "$2a$10$aIbd.c2hP6nMp8qlOilIlegl4cfOyMzHf3dLhMa1Oq5F2QI5wIKCe"));
+			userCrudService
+					.save(new User("nicholas" + i, "$2a$10$aIbd.c2hP6nMp8qlOilIlegl4cfOyMzHf3dLhMa1Oq5F2QI5wIKCe"));
 		}
 		log.info("User Object saved!");
 	}

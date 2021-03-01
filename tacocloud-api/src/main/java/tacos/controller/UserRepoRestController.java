@@ -1,7 +1,12 @@
 package tacos.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import tacos.data.UserCrudService;
 import tacos.domain.User;
+import tacos.dto.UserDTO;
 import tacos.representationmodel.UserRepresentationModel;
 import tacos.representationmodel.assemblers.UserRepresentationModelAssembler;
 
@@ -52,6 +58,18 @@ public class UserRepoRestController {
 				.toCollectionModel(entityUsers);
 
 		return new ResponseEntity<CollectionModel<UserRepresentationModel>>(collectionModels, HttpStatus.FOUND);
+
+	}
+
+	@GetMapping("/users/no-links")
+	public ResponseEntity<List<UserDTO>> showUsersNoLinks() {
+		List<User> usuarios = new ArrayList<>();
+		userCrudService.findAll().forEach(usuarios::add);
+
+		Stream<UserDTO> uStream = usuarios.parallelStream().map(UserDTO::toDTO);
+		List<UserDTO> lUsers = uStream.parallel().collect(CopyOnWriteArrayList::new, List::add, List::addAll);
+
+		return new ResponseEntity<>(lUsers, HttpStatus.OK);
 
 	}
 }
