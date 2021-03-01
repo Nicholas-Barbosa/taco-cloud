@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.hasRole("USER").antMatchers("/login").access("permitAll").antMatchers("/", "/**")
 				.access("T(java.time.LocalDate).now().getYear()==2021").and().formLogin().loginPage("/login")
 				.defaultSuccessUrl("/design").usernameParameter("user").passwordParameter("pwd").and().logout()
-				.logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**").and()
+				.logoutSuccessUrl("/").and().csrf().ignoringAntMatchers("/h2-console/**", "/api/datarest/**").and()
 				.headers().frameOptions().sameOrigin();
 	}
 
