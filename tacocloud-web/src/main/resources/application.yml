@@ -7,12 +7,19 @@ taco:
 spring:
     profiles:    active:    - dev
   data:    rest:      base-path: /api/datarest/
- 
+  artemis:
+    host: localhost    port: 8161
+    user: tacoweb
+    password: 321
+  
+  jms:    template:      default-destination: tacocloud.order.queue
 ---
+spring:
+  profiles:
+  - prod
 server:
   port: 8443   ssl:    key-store: src/main/resources/keystore/mykeys.jks    key-store-password: Vicinitech12    key-password: Vicinitech12
-spring:
-  profiles:  - prod  datasource:    url: jdbc:mysql://localhost:3306/tacocloud?useTimezone=true&serverTimezone=UTC    username: root
+  datasource:    url: jdbc:mysql://localhost:3306/tacocloud?useTimezone=true&serverTimezone=UTC    username: root
     password: Vicinitech12
   jpa:    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect    show-sql: true
     properties:     hibernate.format_sql: true 
