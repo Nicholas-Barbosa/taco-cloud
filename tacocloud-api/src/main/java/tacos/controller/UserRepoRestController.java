@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.PagedModel;
@@ -49,8 +51,9 @@ public class UserRepoRestController {
 	}
 
 	@GetMapping("/users")
-	public ResponseEntity<PagedModel<UserRepresentationModel>> showUsers() {
-		Page<User> modelUsers = userCrudService.findAll(PageRequest.of(0, 2, Sort.by("username").ascending()));
+	public ResponseEntity<PagedModel<UserRepresentationModel>> showUsers(
+			@PageableDefault(page = 0, size = 10, sort = "username", direction = Sort.Direction.ASC) Pageable page) {
+		Page<User> modelUsers = userCrudService.findAll(page);
 		PagedModel<UserRepresentationModel> users = pagedResourceAssembler.toModel(modelUsers,
 				new UserRepresentationModelAssembler());
 

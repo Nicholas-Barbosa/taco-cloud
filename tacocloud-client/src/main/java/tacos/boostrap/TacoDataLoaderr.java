@@ -1,10 +1,16 @@
 package tacos.boostrap;
 
+import java.net.URI;
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.client.Traverson;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -31,6 +37,7 @@ public class TacoDataLoaderr implements CommandLineRunner {
 		performHttpGet();
 		performHttpPut();
 		performHttpPost();
+		performHttpGetWithSpringTraversonApi();
 	}
 
 	private void performHttpGet() {
@@ -58,5 +65,16 @@ public class TacoDataLoaderr implements CommandLineRunner {
 
 		System.out.println(response.getBody());
 		log.info("Got for HTTP Post request for Post: /users");
+	}
+
+	private void performHttpGetWithSpringTraversonApi() {
+		Traverson traverson = new Traverson(URI.create(controllerBasePath), MediaTypes.HAL_JSON);
+
+		ParameterizedTypeReference<CollectionModel<UserDTO>> userType = new ParameterizedTypeReference<CollectionModel<UserDTO>>() {
+		};
+		CollectionModel<UserDTO> userRes = traverson.follow("next").toObject(userType);
+
+		Collection<UserDTO> users = userRes.getContent();
+		System.out.println(users);
 	}
 }
