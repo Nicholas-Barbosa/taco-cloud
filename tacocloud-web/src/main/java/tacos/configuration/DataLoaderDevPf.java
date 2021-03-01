@@ -3,7 +3,6 @@ package tacos.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +24,7 @@ public class DataLoaderDevPf implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Bootstraping User Object...");
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 20; i++) {
 			userCrudService
 					.save(new User("nicholas" + i, "$2a$10$aIbd.c2hP6nMp8qlOilIlegl4cfOyMzHf3dLhMa1Oq5F2QI5wIKCe"));
 		}
