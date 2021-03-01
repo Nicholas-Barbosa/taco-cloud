@@ -52,8 +52,7 @@
 		<module>tacocloud-web</module>
 		<module>tacocloud-data</module>
 		<module>tacocloud-security</module>
-		<module>tacocloud-ui</module>
 		<module>tacocloud-api</module>
-		<module>tacocloud-cleint</module>
+		<module>tacocloud-client</module>
 	</modules>
 </project>
