@@ -9,4 +9,5 @@ public interface UserCrudService extends CrudService<User, Long> {
 
 	Page<User> findAll(Pageable page);
 
+	String encodePassword(String password);
 }

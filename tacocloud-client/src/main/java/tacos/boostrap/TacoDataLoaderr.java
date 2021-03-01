@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import tacos.dto.UserDTO;
+import tacos.dto.UserPostForm;
 
 @Component
 public class TacoDataLoaderr implements CommandLineRunner {
@@ -29,12 +30,14 @@ public class TacoDataLoaderr implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		performHttpGet();
 		performHttpPut();
+		performHttpPost();
 	}
 
 	private void performHttpGet() {
 		log.info("Getting Response object for GET: /users/no-links...");
 		ResponseEntity<UserDTO[]> response = restTemplate.getForEntity("http://localhost/api/datarest/users/no-links",
 				UserDTO[].class);
+		log.info(response.getHeaders().getDate() + "");
 		log.info("Got status: " + response.getStatusCodeValue() + "  body: " + Arrays.toString(response.getBody()));
 	}
 
@@ -43,5 +46,17 @@ public class TacoDataLoaderr implements CommandLineRunner {
 		UserDTO userDto = new UserDTO("nicholas", "Nicholas Henrique Barbosa Oliveira", "xxx", "yyy");
 
 		restTemplate.put(controllerBasePath.concat("/{id}"), userDto, 1);
+		log.info("Got for HTTP Put request for PUT: /users");
+	}
+
+	private void performHttpPost() {
+		log.info("Performing HTTP Post request for POST: /users");
+		UserPostForm requestObject = new UserPostForm("nk1", "321", "Nicholas Henrique Barbosa Oliveira", "xxx", "yyy");
+
+		ResponseEntity<UserPostForm> response = restTemplate.postForEntity(controllerBasePath, requestObject,
+				UserPostForm.class);
+
+		System.out.println(response.getBody());
+		log.info("Got for HTTP Post request for Post: /users");
 	}
 }
