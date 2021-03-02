@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import tacos.messagestemplates.OrderAmqpTemplate;
+import tacos.receiver.PullBasedReceiver;
 
 @Service
 public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService, CommandLineRunner {
@@ -15,7 +16,7 @@ public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService,
 	private final Logger log = LoggerFactory.getLogger(RabbitMqOrderMessagingService.class);
 
 	private final RabbitTemplate rabbit;
-
+	
 	public RabbitMqOrderMessagingService(RabbitTemplate rabbit) {
 		super();
 		this.rabbit = rabbit;
@@ -35,6 +36,7 @@ public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService,
 			return m;
 		});
 		log.info("Message sent!");
+		
 	}
 
 	@Override
