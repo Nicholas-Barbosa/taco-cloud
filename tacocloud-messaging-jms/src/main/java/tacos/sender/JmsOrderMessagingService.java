@@ -6,35 +6,39 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import tacos.domain.Order;
+import tacos.messages.OrderJmsMessgae;
+import tacos.receiver.OrderReceiver;
 
 @Service
 public class JmsOrderMessagingService implements OrderMessagingService, CommandLineRunner {
 
 	private final Logger log = LoggerFactory.getLogger(JmsOrderMessagingService.class);
 	private final JmsTemplate jmsTemplate;
+	private final OrderReceiver orderReceiver;
 
-	public JmsOrderMessagingService(JmsTemplate jmsTemplate) {
+	public JmsOrderMessagingService(JmsTemplate jmsTemplate, OrderReceiver orderReceiver) {
 		super();
 		this.jmsTemplate = jmsTemplate;
+		this.orderReceiver = orderReceiver;
 	}
 
 	@Override
-	public void senOrder(Order order) {
+	public void senOrder(OrderJmsMessgae order) throws Exception {
 //		jmsTemplate.send("tacocloud.order.queue", s -> s.createObjectMessage(order)
 //				);
 		log.info("Sending message to broaker...");
-		jmsTemplate.convertAndSend("DLQ", order, m -> {
+		jmsTemplate.convertAndSend("tacocloud.order.queue", order, m -> {
 			m.setStringProperty("X_ORDER_SOURCE", "WEB");
 			return m;
 		});
 		log.info("Message sent!");
+		OrderJmsMessgae orderJmsDto = orderReceiver.receiveOrder();
+		log.info(""+orderJmsDto);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.senOrder(new Order());
-
+		this.senOrder(new OrderJmsMessgae());
 	}
 
 }

@@ -1,9 +1,9 @@
 package tacos.sender;
 
-import tacos.domain.Order;
+import tacos.messages.OrderJmsMessgae;
 
 public interface OrderMessagingService {
-	
-	void senOrder(Order order);
+
+	void senOrder(OrderJmsMessgae order) throws Exception;
 
 }

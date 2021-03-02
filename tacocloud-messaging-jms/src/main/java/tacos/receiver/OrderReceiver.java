@@ -1,8 +1,8 @@
 package tacos.receiver;
 
-import tacos.domain.Order;
+import tacos.messages.OrderJmsMessgae;
 
 public interface OrderReceiver {
 
-	Order receiveOrder() throws Exception;
+	OrderJmsMessgae receiveOrder() throws Exception;
 }
