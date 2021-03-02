@@ -6,7 +6,7 @@ taco:
   
 spring:
     profiles:    active:    - dev
- 
+    - messaging-jms
 #   
     
   jms:    template:      default-destination: tacocloud.order.queue

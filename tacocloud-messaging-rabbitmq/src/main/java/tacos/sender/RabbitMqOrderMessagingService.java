@@ -5,18 +5,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import tacos.messagestemplates.OrderAmqpTemplate;
 import tacos.receiver.PullBasedReceiver;
 
+@Profile("messaging-rbmq")
 @Service
 public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService, CommandLineRunner {
 
 	private final Logger log = LoggerFactory.getLogger(RabbitMqOrderMessagingService.class);
 
 	private final RabbitTemplate rabbit;
-	
+
 	public RabbitMqOrderMessagingService(RabbitTemplate rabbit) {
 		super();
 		this.rabbit = rabbit;
@@ -36,7 +38,7 @@ public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService,
 			return m;
 		});
 		log.info("Message sent!");
-		
+
 	}
 
 	@Override

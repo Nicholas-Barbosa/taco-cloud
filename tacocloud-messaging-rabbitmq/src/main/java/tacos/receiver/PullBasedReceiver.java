@@ -6,10 +6,12 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import tacos.messagestemplates.OrderAmqpTemplate;
-
+@Component
+@Profile("messaging-rbmq")
 public class PullBasedReceiver implements CommandLineRunner {
 
 	private final Logger log = LoggerFactory.getLogger(PullBasedReceiver.class);
