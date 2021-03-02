@@ -7,11 +7,17 @@ taco:
 spring:
     profiles:    active:    - dev
   data:    rest:      base-path: /api/datarest/
+#  activemq:#    broker-url: tcp://localhost:61616
+#    user: tacoweb
+#    password: 321
+#    in-memory: false
+    
   artemis:
-    host: localhost    port: 8161
-    user: tacoweb
+    host: localhost
+    port: 61616    user: tacoweb
     password: 321
-  
+#   
+    
   jms:    template:      default-destination: tacocloud.order.queue
 ---
 spring:

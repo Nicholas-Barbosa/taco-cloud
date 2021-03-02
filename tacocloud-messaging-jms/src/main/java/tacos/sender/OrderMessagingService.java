@@ -1,4 +1,4 @@
-package tacos;
+package tacos.sender;
 
 import tacos.domain.Order;
 
