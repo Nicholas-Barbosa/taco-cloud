@@ -6,16 +6,7 @@ taco:
   
 spring:
     profiles:    active:    - dev
-  data:    rest:      base-path: /api/datarest/
-#  activemq:#    broker-url: tcp://localhost:61616
-#    user: tacoweb
-#    password: 321
-#    in-memory: false
-    
-  artemis:
-    host: localhost
-    port: 61616    user: tacoweb
-    password: 321
+ 
 #   
     
   jms:    template:      default-destination: tacocloud.order.queue
@@ -31,10 +22,19 @@ server:
     properties:     hibernate.format_sql: true 
     hibernate:      ddl-auto: update       
     
-
-
- 
-#logging:  
- # file: files/....
-   # level:  #  root: WARN
-    #'[org.springframework.security]': DEBUG               
+---
+spring:
+  profiles:
+  - dev
+  data:
+    rest:
+      base-path: /api/datarest/
+    
+  artemis:
+    host: localhost
+    port: 61616
+    user: tacoweb
+    password: 321
+    rabbitmq:    host: localhost
+    port: 5672
+               

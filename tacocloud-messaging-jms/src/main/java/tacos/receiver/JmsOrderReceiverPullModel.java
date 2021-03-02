@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import tacos.messages.OrderJmsMessgae;
 
-@Component
+//@Component
 public class JmsOrderReceiverPullModel implements OrderReceiver {
 
 	private final Logger log = LoggerFactory.getLogger(JmsOrderReceiverPullModel.class);

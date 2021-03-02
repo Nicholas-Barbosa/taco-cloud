@@ -37,7 +37,7 @@ public class JmsOrderMessagingService implements OrderMessagingService, CommandL
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.senOrder(new OrderJmsMessgae());
+		//this.senOrder(new OrderJmsMessgae());
 	}
 
 }

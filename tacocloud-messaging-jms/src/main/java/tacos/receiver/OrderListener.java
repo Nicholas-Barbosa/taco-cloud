@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import tacos.messages.OrderJmsMessgae;
 
-@Component
+//@Component
 public class OrderListener implements CommandLineRunner {
 
 	private final Logger log = LoggerFactory.getLogger(OrderListener.class);
