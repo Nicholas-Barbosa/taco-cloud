@@ -26,17 +26,18 @@ public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService,
 	@Override
 	public void sendOrder(OrderAmqpTemplate templateMessaging) {
 		log.info("Sending message to rabbitmq broker...");
-		MessageConverter messageConverter = rabbit.getMessageConverter();
-		MessageProperties props = new MessageProperties();
-		Message message = messageConverter.toMessage(templateMessaging, props);
-		rabbit.send("tacocloud.orders", "tacocloud.order", message);
+//		MessageConverter messageConverter = rabbit.getMessageConverter();
+//		MessageProperties props = new MessageProperties();
+//		Message message = messageConverter.toMessage(templateMessaging, props);
+//		rabbit.send("tacocloud.orders", "tacocloud.order", message);
+		// por isso
+		rabbit.convertAndSend("tacocloud.orders","tacocloud.order",templateMessaging);
 		log.info("Message sent!");
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		sendOrder(new OrderAmqpTemplate("HelloWorld rabbitmq!"));
-
 	}
 
 }
