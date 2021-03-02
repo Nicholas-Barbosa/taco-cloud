@@ -2,10 +2,8 @@ package tacos.sender;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +29,11 @@ public class RabbitMqOrderMessagingService implements OrderAMQPMessagingService,
 //		Message message = messageConverter.toMessage(templateMessaging, props);
 //		rabbit.send("tacocloud.orders", "tacocloud.order", message);
 		// por isso
-		rabbit.convertAndSend("tacocloud.orders","tacocloud.order",templateMessaging);
+		rabbit.convertAndSend("tacocloud.orders", "tacocloud.order", templateMessaging, m -> {
+			MessageProperties props = m.getMessageProperties();
+			props.setHeader("X_ORDER_SOURCE", "WEB");
+			return m;
+		});
 		log.info("Message sent!");
 	}
 
