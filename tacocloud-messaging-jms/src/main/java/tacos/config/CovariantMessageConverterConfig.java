@@ -3,8 +3,6 @@ package tacos.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.criteria.Order;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
