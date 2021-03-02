@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import tacos.messagestemplates.OrderAmqpTemplate;
 
-@Component
 public class PullBasedReceiver implements CommandLineRunner {
 
 	private final Logger log = LoggerFactory.getLogger(PullBasedReceiver.class);
