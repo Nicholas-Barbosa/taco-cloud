@@ -4,6 +4,6 @@ import tacos.messages.OrderJmsMessgae;
 
 public interface OrderMessagingService {
 
-	void senOrder(OrderJmsMessgae order) throws Exception;
+	void senOrder(OrderJmsMessgae order);
 
 }

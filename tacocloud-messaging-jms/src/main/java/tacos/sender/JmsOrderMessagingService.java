@@ -14,16 +14,15 @@ public class JmsOrderMessagingService implements OrderMessagingService, CommandL
 
 	private final Logger log = LoggerFactory.getLogger(JmsOrderMessagingService.class);
 	private final JmsTemplate jmsTemplate;
-	private final OrderReceiver orderReceiver;
+	//private final OrderReceiver orderReceiver;
 
-	public JmsOrderMessagingService(JmsTemplate jmsTemplate, OrderReceiver orderReceiver) {
+	public JmsOrderMessagingService(JmsTemplate jmsTemplate) {
 		super();
 		this.jmsTemplate = jmsTemplate;
-		this.orderReceiver = orderReceiver;
 	}
 
 	@Override
-	public void senOrder(OrderJmsMessgae order) throws Exception {
+	public void senOrder(OrderJmsMessgae order) {
 //		jmsTemplate.send("tacocloud.order.queue", s -> s.createObjectMessage(order)
 //				);
 		log.info("Sending message to broaker...");
@@ -32,8 +31,8 @@ public class JmsOrderMessagingService implements OrderMessagingService, CommandL
 			return m;
 		});
 		log.info("Message sent!");
-		OrderJmsMessgae orderJmsDto = orderReceiver.receiveOrder();
-		log.info(""+orderJmsDto);
+//		OrderJmsMessgae orderJmsDto = orderReceiver.receiveOrder();
+//		log.info(""+orderJmsDto);
 	}
 
 	@Override

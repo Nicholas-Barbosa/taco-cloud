@@ -1,13 +1,11 @@
 package tacos.receiver;
 
 import javax.jms.JMSException;
-import javax.jms.Message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MessageConversionException;
-import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.stereotype.Component;
 
 import tacos.messages.OrderJmsMessgae;
