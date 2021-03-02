@@ -55,5 +55,6 @@
 		<module>tacocloud-api</module>
 		<module>tacocloud-client</module>
 		<module>tacocloud-messaging-jms</module>
+		<module>tacocloud-messaging-rabbitmq</module>
 	</modules>
 </project>
