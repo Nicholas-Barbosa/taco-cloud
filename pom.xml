@@ -57,5 +57,6 @@
 		<module>tacocloud-messaging-jms</module>
 		<module>tacocloud-messaging-rabbitmq</module>
 		<module>tacocloud-flow</module>
+		<module>testflow</module>
 	</modules>
 </project>

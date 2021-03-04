@@ -1,6 +1,5 @@
 package tacos.sender;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import tacos.messages.OrderJmsMessgae;
