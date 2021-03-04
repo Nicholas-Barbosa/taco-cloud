@@ -6,10 +6,13 @@ taco:
   
 spring:
     profiles:    active:    - dev
-    - messaging-jms
+  
 #   
     
   jms:    template:      default-destination: tacocloud.order.queue
+
+
+    
 ---
 spring:
   profiles:
@@ -37,4 +40,13 @@ spring:
     password: 321
     rabbitmq:    host: localhost
     port: 5672
-               
+
+tacocloud:
+  email: 
+    host: imap.tacocloud.com
+    mailbox: INBOX
+    username: taco-in-flow
+    password: 321@
+    poll-rate: 10000
+  api:
+    url: http://api.tacocloud.com         
