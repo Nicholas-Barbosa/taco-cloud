@@ -180,4 +180,10 @@ class TestReactor {
 		flux.all(x -> x >= 10).log().subscribe();
 		StepVerifier.create(flux.any(x -> x == 10)).expectNext(true).verifyComplete();
 	}
+	
+	@Test
+	void logWithParallel() {
+		Flux<Integer>flux = Flux.range(0, 10);
+		flux.parallel().runOn(Schedulers.parallel()). log().subscribe();
+	}
 }
