@@ -35,15 +35,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
 		
 	</dependencies>
 
@@ -59,5 +50,6 @@
 		<module>tacocloud-flow</module>
 		<module>testflow</module>
 		<module>reactor-module</module>
+		<module>tacocloud-webflux</module>
 	</modules>
 </project>
