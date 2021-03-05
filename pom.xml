@@ -50,6 +50,5 @@
 		<module>tacocloud-flow</module>
 		<module>testflow</module>
 		<module>reactor-module</module>
-		<module>tacocloud-webflux</module>
 	</modules>
 </project>
