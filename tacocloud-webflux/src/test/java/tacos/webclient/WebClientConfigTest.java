@@ -43,8 +43,11 @@ class WebClientConfigTest {
 
 	@Test
 	void getNotFound() {
-		webClient.get().uri("/user/not-found").retrieve().onStatus(WebClientConfigTest::isNotFound, reposnse -> Mono.just(new ObjectNotFoundException())).bodyToMono(String.class)
-				.subscribe(System.out::println);
+		webClient.get().uri("/user/not-found").retrieve()
+				.onStatus(WebClientConfigTest::isNotFound, reposnse -> Mono.just(new ObjectNotFoundException()))
+				.bodyToMono(String.class).subscribe(System.out::println);
+//		webClient.get().uri("/user/not-found").retrieve().bodyToMono(String.class)
+//				.subscribe(response -> System.out.println("deu certo"), error -> System.out.println("erro " + error));
 	}
 
 	private static boolean isNotFound(HttpStatus http) {
