@@ -14,7 +14,7 @@ import tacos.dto.UserForm;
 
 @SpringBootTest
 
-class WebClientConfigTest {
+class WebClientTest {
 
 	@Autowired
 	private WebClient webClient;
@@ -44,10 +44,16 @@ class WebClientConfigTest {
 	@Test
 	void getNotFound() {
 		webClient.get().uri("/user/not-found").retrieve()
-				.onStatus(WebClientConfigTest::isNotFound, reposnse -> Mono.just(new ObjectNotFoundException()))
+				.onStatus(WebClientTest::isNotFound, reposnse -> Mono.just(new ObjectNotFoundException()))
 				.bodyToMono(String.class).subscribe(System.out::println);
 //		webClient.get().uri("/user/not-found").retrieve().bodyToMono(String.class)
 //				.subscribe(response -> System.out.println("deu certo"), error -> System.out.println("erro " + error));
+	}
+
+	@Test
+	void exchangeClientResponse() {
+		webClient.get().uri("/user").exchangeToMono(x ->  x.bodyToMono(String.class))
+				.subscribe(x -> System.out.println("exchange " + x));
 	}
 
 	private static boolean isNotFound(HttpStatus http) {
