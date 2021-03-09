@@ -13,7 +13,6 @@ import tacos.ObjectNotFoundException;
 import tacos.dto.UserForm;
 
 @SpringBootTest
-
 class WebClientTest {
 
 	@Autowired

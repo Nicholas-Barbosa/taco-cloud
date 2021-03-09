@@ -50,5 +50,6 @@
 		<module>tacocloud-flow</module>
 		<module>testflow</module>
 		<module>reactor-module</module>
+		<module>tacocloud-eureka</module>
 	</modules>
 </project>
