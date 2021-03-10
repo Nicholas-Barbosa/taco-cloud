@@ -50,6 +50,7 @@
 		<module>tacocloud-flow</module>
 		<module>testflow</module>
 		<module>reactor-module</module>
-		<module>tacocloud-eureka</module>
+		<module>tacocloud-microservice-eureka</module>
+		<module>tacocloud-microservice-client</module>
 	</modules>
 </project>
