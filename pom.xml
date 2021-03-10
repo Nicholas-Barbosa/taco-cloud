@@ -51,6 +51,6 @@
 		<module>testflow</module>
 		<module>reactor-module</module>
 		<module>tacocloud-microservice-eureka</module>
-		<module>tacocloud-microservice-client</module>
+		<module>tacocloud-microservice-ingredient-service</module>
 	</modules>
 </project>
