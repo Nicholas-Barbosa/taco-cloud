@@ -1,4 +1,4 @@
-package ingredient;
+package ingredients;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +8,5 @@ public class IngredientServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(IngredientServiceApplication.class, args);
-		
 	}
 }
