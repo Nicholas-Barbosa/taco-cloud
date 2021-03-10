@@ -53,5 +53,6 @@
 		<module>tacocloud-microservice-eureka</module>
 		<module>tacocloud-microservice-ingredient-service</module>
 		<module>tacocloud-ingredient-service</module>
+		<module>tacocloud-ingredient-client</module>
 	</modules>
 </project>
