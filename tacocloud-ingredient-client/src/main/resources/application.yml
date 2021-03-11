@@ -1,7 +1,7 @@
 spring:
   application:
     name: ingredient-client
-   
+  profiles:    active:    - production
   cloud:    config:      uri: http://localhost:8888
       fail-fast: true
       
