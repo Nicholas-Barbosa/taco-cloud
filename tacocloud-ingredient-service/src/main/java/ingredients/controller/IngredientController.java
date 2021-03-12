@@ -40,12 +40,17 @@ public class IngredientController {
 
 	@GetMapping("/volume-1")
 	@HystrixCommand(fallbackMethod = "showIngredientsFallBack", commandProperties = {
-			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "1"),
-			@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1000") })
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+			@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "2000") })
 	public Iterable<IngredientDTO> showIngredientsVolumeThreshold() {
-		return Arrays.asList(new IngredientDTO("chicken", IngredientDTO.Type.PROTEIN),
-				new IngredientDTO("chicken2", IngredientDTO.Type.PROTEIN),
-				new IngredientDTO("chicken", IngredientDTO.Type.PROTEIN));
+		System.out.println("volume");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private Iterable<IngredientDTO> showIngredientsFallBack() {
