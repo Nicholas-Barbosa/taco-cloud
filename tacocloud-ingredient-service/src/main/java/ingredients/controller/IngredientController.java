@@ -38,7 +38,18 @@ public class IngredientController {
 		return null;
 	}
 
+	@GetMapping("/volume-1")
+	@HystrixCommand(fallbackMethod = "showIngredientsFallBack", commandProperties = {
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "1"),
+			@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1000") })
+	public Iterable<IngredientDTO> showIngredientsVolumeThreshold() {
+		return Arrays.asList(new IngredientDTO("chicken", IngredientDTO.Type.PROTEIN),
+				new IngredientDTO("chicken2", IngredientDTO.Type.PROTEIN),
+				new IngredientDTO("chicken", IngredientDTO.Type.PROTEIN));
+	}
+
 	private Iterable<IngredientDTO> showIngredientsFallBack() {
+		System.out.println("fallback");
 		return Arrays.asList(new IngredientDTO("falBack", IngredientDTO.Type.PROTEIN),
 				new IngredientDTO("falBack2", IngredientDTO.Type.PROTEIN),
 				new IngredientDTO("falBack3", IngredientDTO.Type.PROTEIN));
