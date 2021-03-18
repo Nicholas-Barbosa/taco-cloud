@@ -3,6 +3,7 @@ package tacos.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -39,9 +40,11 @@ public class UserRegistrationController {
 
 	@PostMapping
 	public String processRegistration(@Valid RegistrationForm form, Errors erros, HttpServletRequest request) {
-		if (erros.hasErrors()) 
+		if (erros.hasErrors())
 			return "registration";
 		userCrudService.save(form.toUser(passwordEnconder));
 		return "redirect:/login";
 	}
+
+	
 }
