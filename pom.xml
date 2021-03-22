@@ -58,5 +58,6 @@
 		<module>HystrixDashboard</module>
 		<module>TurbineServer</module>
 		<module>tacocloud-actuator</module>
+		<module>tacocloud-admin-server</module>
 	</modules>
 </project>
